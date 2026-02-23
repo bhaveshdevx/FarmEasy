@@ -32,7 +32,6 @@ export default function RootLayout({
         />
       </head>
       <body className={`${jakarta.variable} font-sans antialiased`}>
-
         {children}
       </body>
     </html>

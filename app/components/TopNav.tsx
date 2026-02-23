@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { properties } from "@/app/lib/PropertyData";
-
+import Image from "next/image";
+import Logo from "@/public/logo.svg";
+import Logo2 from "@/public/logo2.svg";
 /* ──────────────────────────────────────────────────────────
  * TopNav — Sticky top navigation bar
  * Contains: Logo | Search bar (desktop) | Notification | Profile
@@ -15,9 +17,10 @@ export default function TopNav() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-3">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2 shrink-0 cursor-pointer group">
-                    <div className="bg-primary p-1.5 rounded-lg text-white group-hover:scale-110 transition-transform">
+                    <Image src={Logo} alt="Logo" width={40} height={40} />
+                    {/* <div className="bg-primary p-1.5 rounded-lg text-white group-hover:scale-110 transition-transform">
                         <span className="material-symbols-outlined text-[20px]">agriculture</span>
-                    </div>
+                    </div> */}
                     <h1 className="text-lg font-extrabold tracking-tight text-primary hidden sm:block">
                         FarmEasy
                     </h1>

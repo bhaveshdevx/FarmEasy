@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   subsets: ["latin"],
@@ -9,7 +8,11 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "FarmEasy | Discover Your Perfect Farmhouse Escape",
+  title: "FarmEasy",
+  icons: {
+    icon: "/logo.svg",
+    apple: "/logo.svg",
+  },
   description:
     "Swipe, discover, and book stunning farmhouse stays with your squad. TikTok-style discovery, bento-grid details, and collaborative trip planning.",
   keywords: "farmhouse, vacation, booking, farm stay, weekend getaway",
@@ -29,6 +32,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${jakarta.variable} font-sans antialiased`}>
+
         {children}
       </body>
     </html>

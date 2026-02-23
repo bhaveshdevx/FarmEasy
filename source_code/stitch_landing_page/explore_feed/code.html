@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FarmStay - Explore Your Escape</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec4913",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221510",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .snap-v-mandatory { scroll-snap-type: y mandatory; }
+        .snap-start { scroll-snap-align: start; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+<!-- Top Navigation Bar (Fixed) -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
+<div class="max-w-[1200px] mx-auto px-4 lg:px-10 py-4 flex items-center justify-between">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">agriculture</span>
+<h1 class="text-xl font-bold tracking-tight">FarmStay</h1>
+</div>
+<div class="hidden md:flex flex-1 max-w-md mx-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-full py-2.5 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 text-sm" placeholder="Search farmhouses, barns, views..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-primary/10 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full bg-primary/10 border border-primary/20 overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a smiling man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABLNTNGEq1sC5hF96LjwyqFCghroZJ4zMsgEh1qvNVXE50bC5PtI-V2L6zpqKsmaLrhJ9nwaLG-kCJ5BUp7qpPEjWL5Bn72CAwrdm3MKmMDlKyvq2LAuzEypJTAbkKmScyO-YrEBrGgQM7b9Pgpld-osKT1Cz1iEryipvMnZSYbFAjvDmR1ExJf3AaWFHa9DkuDXQOAez7PbpF9bYLdSuYKfg2n2Au0jBIV9DD9Fe1ZGJwwrfsQQSJGbcMaMzI7HQ8xP21jRMWBx0"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Grid -->
+<main class="pt-24 pb-24 md:pb-10 max-w-[1200px] mx-auto px-4 flex flex-col md:flex-row gap-8 justify-center">
+<!-- Left Sidebar: Categories (Desktop Only) -->
+<aside class="hidden lg:flex flex-col gap-6 w-64 shrink-0 h-fit sticky top-24">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
+<h3 class="font-bold mb-4 px-2">Filters</h3>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-full bg-primary text-white font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">explore</span> Explore
+                    </a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">pets</span> Pet Friendly
+                    </a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">eco</span> Organic Farms
+                    </a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">terrain</span> Mountain View
+                    </a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">bolt</span> Off-grid
+                    </a>
+</nav>
+</div>
+</aside>
+<!-- Center Feed (Mobile Style) -->
+<section class="w-full max-w-[500px] flex flex-col gap-8 snap-v-mandatory h-screen overflow-y-auto no-scrollbar md:h-auto md:overflow-visible">
+<!-- Category Chips (Mobile View Only) -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar lg:hidden pb-2 shrink-0">
+<button class="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">All Stays</button>
+<button class="bg-white dark:bg-slate-900 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap shadow-sm border border-slate-100 dark:border-slate-800">Mountain View</button>
+<button class="bg-white dark:bg-slate-900 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap shadow-sm border border-slate-100 dark:border-slate-800">Luxury Barns</button>
+<button class="bg-white dark:bg-slate-900 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap shadow-sm border border-slate-100 dark:border-slate-800">Vineyards</button>
+</div>
+<!-- Feed Card 1 -->
+<article class="relative w-full aspect-[9/16] rounded-xl overflow-hidden shadow-2xl snap-start group bg-slate-200 dark:bg-slate-800">
+<img alt="Farmhouse" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Beautiful rustic stone farmhouse in golden sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfo_mIViJGmYAc_VH44Il51sGBNi9onxPBUPO8FGEW4QG44TWdCZZgYYcOZJR9hBJcl8lIghQ3EHhYUqDdfDIwjizCv0RmFbQihubqepvRqAzPzyW7T1_gppn8tq_DFysAFqH-Cs2mbAI6-g2oert5_rnUKShLK2ngOwB7C6zYGrqB4Wl6VoGP1rvyCAH1WAiY0_nKFoRbVyU74NLpDL-oefvvKHFbUkZ9uJlX3z-iNP4A1Ygt8b6LLCijfdAl3ByC-EiaB8-E_L0"/>
+<!-- Info Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-primary/90 text-white text-[10px] uppercase font-bold tracking-widest px-2 py-1 rounded-full">Popular Stay</span>
+<div class="flex items-center gap-1 text-yellow-400">
+<span class="material-symbols-outlined text-sm fill-current">star</span>
+<span class="text-xs font-bold text-white">4.9</span>
+</div>
+</div>
+<h2 class="text-white text-2xl font-bold leading-tight mb-1">The Golden Vineyard Retreat</h2>
+<p class="text-slate-300 text-sm mb-4">Napa Valley, California</p>
+<div class="flex items-center justify-between">
+<span class="text-white font-bold text-xl">$150<span class="text-sm font-normal opacity-80">/night</span></span>
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all transform active:scale-95 shadow-lg shadow-primary/20">
+                            Book Now
+                        </button>
+</div>
+</div>
+<!-- Interaction Sidebar -->
+<div class="absolute right-4 bottom-32 flex flex-col items-center gap-6">
+<button class="flex flex-col items-center gap-1 group/btn">
+<div class="size-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all group-hover/btn:bg-primary group-hover/btn:scale-110">
+<span class="material-symbols-outlined fill-current">favorite</span>
+</div>
+<span class="text-white text-xs font-bold">1.2k</span>
+</button>
+<button class="flex flex-col items-center gap-1 group/btn">
+<div class="size-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all group-hover/btn:bg-white group-hover/btn:text-slate-900 group-hover/btn:scale-110">
+<span class="material-symbols-outlined">bookmark</span>
+</div>
+<span class="text-white text-xs font-bold">450</span>
+</button>
+<button class="flex flex-col items-center gap-1 group/btn">
+<div class="size-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all group-hover/btn:bg-white group-hover/btn:text-slate-900 group-hover/btn:scale-110">
+<span class="material-symbols-outlined">share</span>
+</div>
+<span class="text-white text-xs font-bold">120</span>
+</button>
+</div>
+</article>
+<!-- Feed Card 2 -->
+<article class="relative w-full aspect-[9/16] rounded-xl overflow-hidden shadow-2xl snap-start group bg-slate-200 dark:bg-slate-800">
+<img alt="Mountain Farmhouse" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Modern cabin style farmhouse with massive mountain views" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhl5pnhE1IUAA3jyQzFT4xahRNt6KbrYet6KgzEXnz6D1bt8EntJQkQ4EHEYqZvSYFY3WGUihnrChw5Y8LgF5CcZdTXY_g7KVey5zZXRO16NMpav0CUzh8OtJ2f1d92xEP2C0cjRttlf6_iFMgz6CF9ZbXInM5hvcXnsZeElIJLlHwh_Lf8d-4QUzF8_vRDYv1g5Bi2mLoN6lCaG4eLVB9gwyfBrBOu4Xh85ov-p9mwzXExzOqoYAKKWs7SzrOxB2oOwABTUlVzdA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-primary/90 text-white text-[10px] uppercase font-bold tracking-widest px-2 py-1 rounded-full">New Arrival</span>
+<div class="flex items-center gap-1 text-yellow-400">
+<span class="material-symbols-outlined text-sm fill-current">star</span>
+<span class="text-xs font-bold text-white">4.8</span>
+</div>
+</div>
+<h2 class="text-white text-2xl font-bold leading-tight mb-1">Alpine Peak Ranch</h2>
+<p class="text-slate-300 text-sm mb-4">Aspen, Colorado</p>
+<div class="flex items-center justify-between">
+<span class="text-white font-bold text-xl">$320<span class="text-sm font-normal opacity-80">/night</span></span>
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all transform active:scale-95 shadow-lg shadow-primary/20">
+                            Book Now
+                        </button>
+</div>
+</div>
+<div class="absolute right-4 bottom-32 flex flex-col items-center gap-6">
+<button class="flex flex-col items-center gap-1 group/btn">
+<div class="size-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all group-hover/btn:bg-primary">
+<span class="material-symbols-outlined">favorite</span>
+</div>
+<span class="text-white text-xs font-bold">892</span>
+</button>
+<button class="flex flex-col items-center gap-1 group/btn">
+<div class="size-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all group-hover/btn:bg-white group-hover/btn:text-slate-900">
+<span class="material-symbols-outlined">bookmark</span>
+</div>
+<span class="text-white text-xs font-bold">210</span>
+</button>
+<button class="flex flex-col items-center gap-1 group/btn">
+<div class="size-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all group-hover/btn:bg-white group-hover/btn:text-slate-900">
+<span class="material-symbols-outlined">share</span>
+</div>
+<span class="text-white text-xs font-bold">88</span>
+</button>
+</div>
+</article>
+<!-- Feed Card 3 -->
+<article class="relative w-full aspect-[9/16] rounded-xl overflow-hidden shadow-2xl snap-start group bg-slate-200 dark:bg-slate-800">
+<img alt="Eco Farmhouse" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Sustainable eco-friendly wooden farmhouse in a lush forest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAryocLG6qWsEnagjTHNA5Rn8_bAecEgp_mJJNJrLC69pQCJf7zCPTSVpnVB0pMlwJgPgOflo7AhS1WXgLcbvYPPKExcu75dyTdCm3FweHJZ1nJ6PU_eqYGBB7DGOn-RE0wFKoKfz_bXh7U180Z-6QLvJ3hVOBM3ltQM9txiUtYwOoP3MXPj1MmNuZIQLPYIOAEacsiVohTDIHJ3taGP74f-4nHROiakHQF4hA7tdqAgzg1VE0eytLzX-HNGTo6NxX92CuPwBKpIxo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-green-600/90 text-white text-[10px] uppercase font-bold tracking-widest px-2 py-1 rounded-full">Eco-Certified</span>
+<div class="flex items-center gap-1 text-yellow-400">
+<span class="material-symbols-outlined text-sm fill-current">star</span>
+<span class="text-xs font-bold text-white">5.0</span>
+</div>
+</div>
+<h2 class="text-white text-2xl font-bold leading-tight mb-1">Bamboo Grove Sanctuary</h2>
+<p class="text-slate-300 text-sm mb-4">Ubud, Bali</p>
+<div class="flex items-center justify-between">
+<span class="text-white font-bold text-xl">$110<span class="text-sm font-normal opacity-80">/night</span></span>
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all transform active:scale-95 shadow-lg shadow-primary/20">
+                            Book Now
+                        </button>
+</div>
+</div>
+<div class="absolute right-4 bottom-32 flex flex-col items-center gap-6">
+<button class="flex flex-col items-center gap-1 group/btn">
+<div class="size-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all group-hover/btn:bg-primary">
+<span class="material-symbols-outlined">favorite</span>
+</div>
+<span class="text-white text-xs font-bold">2.4k</span>
+</button>
+<button class="flex flex-col items-center gap-1 group/btn">
+<div class="size-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all group-hover/btn:bg-white group-hover/btn:text-slate-900">
+<span class="material-symbols-outlined">bookmark</span>
+</div>
+<span class="text-white text-xs font-bold">1.1k</span>
+</button>
+<button class="flex flex-col items-center gap-1 group/btn">
+<div class="size-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all group-hover/btn:bg-white group-hover/btn:text-slate-900">
+<span class="material-symbols-outlined">share</span>
+</div>
+<span class="text-white text-xs font-bold">440</span>
+</button>
+</div>
+</article>
+</section>
+<!-- Right Sidebar: Suggested (Desktop Only) -->
+<aside class="hidden xl:flex flex-col gap-8 w-80 shrink-0 h-fit sticky top-24">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold">Trending Near You</h3>
+<a class="text-primary text-xs font-bold hover:underline" href="#">See All</a>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="size-16 rounded-lg overflow-hidden shrink-0">
+<img alt="Stay" class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="Small cottage in a green field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByY5uoNMPiZP1miW3MHxpvtATGPw4iGHrkFyQAihHlUgynRUUBM--BKPLufZcFmVyudQphUYNic7SZ5hSBn1MOWs4K80-VRulj2kT-8jwXDxNqUZ3hTCulD_80NS8x8pEBJ_P4k6fXiqnweUi0yocqIl6CShULXz70fK1t2It1--lgnqMxwANYBx0AXTNKLMlNePCtO0WdjeCUU7SosXmeeECn-3ZBCrakMzFqpHgQ0r9da-cCLG2WxJldN_K00S2fHeoXiUMcjPQ"/>
+</div>
+<div>
+<p class="font-bold text-sm line-clamp-1">Blueberry Hill Farm</p>
+<p class="text-slate-500 text-xs">2.4 miles away</p>
+<p class="text-primary font-bold text-xs mt-1">$95/night</p>
+</div>
+</div>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="size-16 rounded-lg overflow-hidden shrink-0">
+<img alt="Stay" class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="A0-frame house in a snowy landscape" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCClz8W39b4nktI-hxYG9_owvSkyTH1JCUD6yqGMnJl-pQIYWuA7wflDnk7ZzWBsS9pBebNDFkvbBEV89K80e2u91PLRvrQyZMtHC-pv1PyGAQ7AehC9YL9RAqjIrnSi-9-gwIDPGTlWxhLqpJVYAbo8DdVBILFM9oCj4-V8B7XSkeUAZyQc-YPqO9W3jaEmetlbLn8DEAMPilyYQ7Moz_M-i4OoehkZOZT-sysW3evjidp84PsSdKEoYIjCtHH6HFPBHjjUD_U8sE"/>
+</div>
+<div>
+<p class="font-bold text-sm line-clamp-1">The Nordic A-Frame</p>
+<p class="text-slate-500 text-xs">5.1 miles away</p>
+<p class="text-primary font-bold text-xs mt-1">$210/night</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-primary/5 p-6 rounded-xl border border-primary/10">
+<p class="text-primary font-bold text-sm mb-2">Host your own farm stay?</p>
+<p class="text-slate-600 dark:text-slate-400 text-xs mb-4">Start earning by sharing your space with our global community.</p>
+<button class="w-full bg-white dark:bg-slate-900 text-primary border border-primary/20 py-2 rounded-full text-xs font-bold hover:bg-primary hover:text-white transition-colors">
+                    Learn More
+                </button>
+</div>
+</aside>
+</main>
+<!-- Mobile Bottom Navigation (Floating Pill) -->
+<nav class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 backdrop-blur-xl rounded-full px-6 py-3 shadow-2xl flex items-center gap-8 border border-white/10">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="text-primary" href="#">
+<span class="material-symbols-outlined fill-current">explore</span>
+</a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">favorite</span>
+</a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vibe - One-Tap Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#ec4913",
+              "primary-hover": "#d13c0d",
+              "background-light": "#f8f6f6",
+              "background-dark": "#221510",
+            },
+            fontFamily: {
+              "display": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom styles for glassmorphism if backdrop-filter isn't sufficient */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .dark .glass-panel {
+            background: rgba(34, 21, 16, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen overflow-hidden relative">
+<!-- Background Layer -->
+<div class="absolute inset-0 z-0">
+<!-- Abstract representation of video background -->
+<div class="w-full h-full bg-cover bg-center" data-alt="Group of friends partying at a farmhouse with bonfire at night" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBr6-OT-1JRsEgEcSnkHSAWYC5P2PUyOfahf26P07mEEIc4-6b_jvpch6iPhwshofY1KD0-XpZNyuj93NBqapk2JXsflwC1A290euEOjSe7DOFl0AzoH5lDmOUYF04SUGMA0nfJT2EE9JnlJDFxEzW3uCKf75ApS3Y8hOfSwfVV_9Taym2uKWf1leuq6KvD8OqdXSA3riU9WEGq1PL-oSaChi5eoxtFX0oKlSaHryHGfO5DSdpmMqERi7v-NRAM9Vq0Bdfw9EbfWXs');">
+<div class="absolute inset-0 bg-black/60"></div>
+</div>
+</div>
+<!-- Main Content Layout -->
+<div class="relative z-10 flex h-full min-h-screen w-full flex-col items-center justify-center p-4">
+<!-- Onboarding Card -->
+<div class="glass-panel w-full max-w-[480px] rounded-lg shadow-2xl p-8 sm:p-12 flex flex-col items-center gap-6 animate-in fade-in zoom-in duration-500">
+<!-- Logo Area -->
+<div class="flex flex-col items-center gap-2 mb-4 text-center">
+<div class="size-16 bg-primary rounded-xl flex items-center justify-center mb-2 shadow-lg shadow-primary/30">
+<span class="material-symbols-outlined text-white text-4xl">local_fire_department</span>
+</div>
+<h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">Vibe</h1>
+<p class="text-slate-500 dark:text-slate-400 font-medium text-lg">Find your tribe, book your vibe</p>
+</div>
+<!-- Login Options -->
+<div class="w-full flex flex-col gap-4">
+<!-- Google Button -->
+<button class="group flex w-full items-center justify-center gap-3 rounded-full bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all h-14 px-6 shadow-sm hover:shadow-md dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-700">
+<img alt="Google Logo" class="w-6 h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG5nK-cvB738M-mQlMV4hZCLMOW9J8NSLIGi3RyKyoU8JrRZqXayoEFeJDrj7uCqgMDz1-QAOTfq0rrelVcSObBTRBFTr8G4rExQrBjGeO54t3MJv6dFCSFjVi7SXQuYT5073D9R1oAhyWJR6gmfKuQGqy6RYX4QRdJh4W6Jz20ivnJZpcgYxJOhOtN_aJkX1UoJeNImoVQkx-mqeLVCsYDHZvnrkoA7vfzS36nyGVc4nhQ1B1C0o0WtlyCxJ00A-a-MvxojGUrXI"/>
+<span class="text-base font-bold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white">Continue with Google</span>
+</button>
+<!-- WhatsApp Button -->
+<button class="group flex w-full items-center justify-center gap-3 rounded-full bg-[#25D366] hover:bg-[#20bd5a] transition-all h-14 px-6 shadow-sm hover:shadow-md text-white">
+<span class="material-symbols-outlined text-white text-2xl">chat</span> <!-- Using material icon as placeholder for specific brand icon if needed, or keeping consistent -->
+<span class="text-base font-bold">Continue with WhatsApp</span>
+</button>
+</div>
+<!-- Separator -->
+<div class="flex w-full items-center gap-2 py-2">
+<div class="h-[1px] w-full bg-slate-200 dark:bg-slate-700"></div>
+<p class="text-xs text-slate-400 font-medium uppercase tracking-wider whitespace-nowrap">or</p>
+<div class="h-[1px] w-full bg-slate-200 dark:bg-slate-700"></div>
+</div>
+<!-- Host Link -->
+<div class="text-center">
+<p class="text-sm font-medium text-slate-600 dark:text-slate-400">
+                    Are you a Host? 
+                    <a class="text-primary hover:text-primary-hover font-bold hover:underline transition-colors" href="#">Login here</a>
+</p>
+</div>
+<!-- Footer Legal -->
+<div class="pt-4 border-t border-slate-100 dark:border-slate-800 w-full text-center">
+<p class="text-xs text-slate-400 leading-relaxed max-w-xs mx-auto">
+                    By continuing, you agree to our 
+                    <a class="underline hover:text-slate-500 transition-colors" href="#">Terms of Service</a> &amp; 
+                    <a class="underline hover:text-slate-500 transition-colors" href="#">Privacy Policy</a>.
+                </p>
+</div>
+</div>
+</div>
+</body></html>

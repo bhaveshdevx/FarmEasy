@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vibe - Find your escape</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#17cf17",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112111",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hiding for clean feed look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-hidden h-screen w-screen relative">
+<!-- Background Media Container (Simulated Feed Item) -->
+<div class="absolute inset-0 z-0 h-full w-full">
+<!-- Media Item 1 -->
+<div class="relative h-full w-full bg-slate-900 overflow-hidden">
+<!-- Background Image -->
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105" data-alt="Modern cabin in a misty forest setting with large windows" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHM-A_jZp9Ttl2d7ZdBf-Hv9weUrGKTLMHF-6EeC2CUpRpi_hth8O1-_it4JGvEXReHBHrqWvVq1pI2Vc0d0FHVr2KoErdy0xMhvoU7lqM1GNs_TjP9dzep3YI05GCFU4sjFDuE4IVYLLWYpj5fEqrbfDEOdC6u09S3tRcJvybVrnzUEsitu6X75SSGh-BcVgUCuVnF0jEcoIqHDkOJZKiTbMdJ6ByIK2Zl3EV5K7Tk1i0msHSuR7qdPtY92l9dq6bsCCSibnF-UY');"></div>
+<!-- Gradient Overlay for Text Readability -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10"></div>
+</div>
+</div>
+<!-- Top Navigation / Smart Search -->
+<header class="absolute top-0 left-0 right-0 z-40 flex justify-center pt-6 px-4 pointer-events-none">
+<div class="pointer-events-auto w-full max-w-lg">
+<label class="group flex items-center w-full h-14 bg-white/90 dark:bg-black/60 backdrop-blur-xl rounded-full shadow-lg border border-white/20 transition-all hover:bg-white dark:hover:bg-black/80 focus-within:ring-2 focus-within:ring-primary/50">
+<div class="pl-5 pr-3 text-slate-500 dark:text-slate-400 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full bg-transparent border-none text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-0 text-base font-medium h-full rounded-r-full" placeholder="Find your weekend vibe..." type="text"/>
+<div class="pr-2">
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 transition-colors">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</label>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="relative z-10 h-full w-full flex flex-col justify-end pb-24 px-6 md:px-12 lg:px-20 pointer-events-none">
+<div class="flex items-end justify-between w-full max-w-7xl mx-auto">
+<!-- Property Info (Bottom Left) -->
+<div class="flex flex-col gap-4 max-w-xl pointer-events-auto pb-8">
+<!-- Host/Vibe Badge -->
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="h-10 w-10 rounded-full border-2 border-primary p-0.5 bg-white/10 backdrop-blur-sm">
+<img alt="Host profile picture" class="h-full w-full rounded-full object-cover" data-alt="Smiling young man host profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBslPhyOoepIpHbRfTh4r4HmdIKVdLhDU_-p0aiDwSjbg16r0mYYhsc8Tb0Zh0Re2S-Gcvou4rpVkFsPbWFgW5Rb34wIFHb-Lq1JYFVFeZozhSiRhIo9NI_tspVwXugPpYBG40j3fw2jXmxt-Uzwl4i1Dt2iUk3poDQoY8D22EozRQ9yZ5VLhCiIjxBLeueVyI9LNUWopeFLTpCHUf8sZO0Tl8LDuDQCiJ80Ua1K7_dS_pPV-FZe7jr2AG_rcRWqLybXUgzLRgkE6M"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-black/20">
+                            PRO
+                        </div>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-bold text-sm tracking-wide shadow-black drop-shadow-md">@cabin_fever</span>
+<span class="text-white/80 text-xs font-medium">Superhost • 4.9 ★</span>
+</div>
+</div>
+<!-- Title & Details -->
+<div class="space-y-1">
+<h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight drop-shadow-lg">
+                        The Hidden Pine Cabin
+                    </h1>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-white/90 text-sm md:text-base font-medium drop-shadow-md pt-1">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+                            Upstate New York
+                        </span>
+<span class="w-1 h-1 rounded-full bg-white/60"></span>
+<span>2 hrs away</span>
+</div>
+</div>
+<!-- Price & Action -->
+<div class="flex items-center gap-4 pt-2">
+<div class="bg-white/10 backdrop-blur-md rounded-xl px-4 py-2 border border-white/10">
+<span class="text-white font-bold text-lg">$250</span>
+<span class="text-white/70 text-sm"> / night</span>
+</div>
+<button class="bg-primary hover:bg-green-500 text-white px-6 py-2.5 rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/40 flex items-center gap-2">
+<span>Check Availability</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Social Sidebar (Right Side) -->
+<div class="flex flex-col gap-5 items-center pointer-events-auto pb-8">
+<!-- Profile / Stories -->
+<button class="group relative flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full p-[2px] bg-gradient-to-tr from-primary to-blue-400">
+<div class="w-full h-full rounded-full border-2 border-black overflow-hidden bg-black">
+<img alt="User profile" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Woman with sunglasses profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY7DV2nFqpn3Gkq8cNStaeCRgMH6Ds2sJ2ds626OajSf2EuT7nz7_rKKfliopsKIPEfZ1w79XxrDCqMM5uVJN9Ncfgf80GCNPR3j8drZIbt598-jMTQCQ0SH98PLzfuZSyIOX7VEP9zpLlK74RH23-A4LdBXbAdHluhoHrfFOhflI0BvydAsUjniMlAlEw1r12KiShiqQvYRWYtMgZXjwe5yIzWd_vkqrzSef_DYJUhT2Qtk3aC3v6ARQHUTAfJYgrY3Hpf-gZXbQ"/>
+</div>
+</div>
+<span class="material-symbols-outlined text-white absolute -bottom-2 bg-primary rounded-full text-[14px] p-0.5 border-2 border-black">add</span>
+</button>
+<!-- Like -->
+<div class="flex flex-col items-center gap-1">
+<button class="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white hover:bg-white/20 transition-all hover:scale-110 active:scale-95 group">
+<span class="material-symbols-outlined group-hover:text-red-500 transition-colors text-[28px] fill-current" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">favorite</span>
+</button>
+<span class="text-white text-xs font-bold drop-shadow-md">12.5k</span>
+</div>
+<!-- Comments -->
+<div class="flex flex-col items-center gap-1">
+<button class="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white hover:bg-white/20 transition-all hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined text-[26px]">chat_bubble</span>
+</button>
+<span class="text-white text-xs font-bold drop-shadow-md">342</span>
+</div>
+<!-- Save -->
+<div class="flex flex-col items-center gap-1">
+<button class="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white hover:bg-white/20 transition-all hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined text-[28px]">bookmark</span>
+</button>
+<span class="text-white text-xs font-bold drop-shadow-md">Save</span>
+</div>
+<!-- Share -->
+<div class="flex flex-col items-center gap-1">
+<button class="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white hover:bg-white/20 transition-all hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined text-[26px] -rotate-45 translate-x-0.5 -translate-y-0.5">send</span>
+</button>
+<span class="text-white text-xs font-bold drop-shadow-md">Share</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Floating Dock) -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-auto">
+<div class="flex items-center gap-1 p-2 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl rounded-full shadow-2xl border border-white/20 dark:border-white/5 ring-1 ring-black/5">
+<a class="group relative flex items-center justify-center px-6 py-3 rounded-full bg-black/5 dark:bg-white/10 text-slate-900 dark:text-white transition-all" href="#">
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[24px] text-primary" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-[10px] font-bold text-primary">Feed</span>
+</div>
+<!-- Active Indicator Dot -->
+<span class="absolute top-2 right-4 w-1.5 h-1.5 bg-primary rounded-full"></span>
+</a>
+<a class="group flex items-center justify-center px-6 py-3 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" href="#">
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[24px]">map</span>
+<span class="text-[10px] font-medium">Map</span>
+</div>
+</a>
+<!-- FAB / Add Button (Central) -->
+<button class="flex items-center justify-center w-12 h-12 mx-2 rounded-full bg-gradient-to-tr from-primary to-green-400 text-white shadow-lg shadow-primary/30 hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<a class="group flex items-center justify-center px-6 py-3 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" href="#">
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[24px]">group</span>
+<span class="text-[10px] font-medium">Squads</span>
+</div>
+</a>
+<a class="group flex items-center justify-center px-6 py-3 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" href="#">
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</div>
+</a>
+</div>
+</nav>
+<!-- Side Scroller Indicators (Optional for Desktop UX) -->
+<div class="absolute right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-2 pointer-events-none">
+<div class="w-1.5 h-1.5 bg-white rounded-full opacity-100 shadow-[0_0_8px_rgba(255,255,255,0.8)]"></div>
+<div class="w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+<div class="w-1.5 h-1.5 bg-white/40 rounded-full"></div>
+</div>
+</body></html>

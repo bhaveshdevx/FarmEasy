@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Squad Collaborative Voting - Vibe</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec4913",
+                        "primary-content": "#ffffff",
+                        "primary-light": "#feece8",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221510",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d1b14",
+                        "text-main": "#181311",
+                        "text-muted": "#896b61",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Plus Jakarta Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col relative text-text-main dark:text-gray-100">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 bg-surface-light/90 dark:bg-surface-dark/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 px-6 py-4">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<!-- Logo -->
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.263 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M10.4485 13.8519C10.4749 13.9271 10.6203 14.246 11.379 14.7361C12.298 15.3298 13.7492 15.9145 15.6717 16.3735C18.0007 16.9296 20.8712 17.2655 24 17.2655C27.1288 17.2655 29.9993 16.9296 32.3283 16.3735C34.2508 15.9145 35.702 15.3298 36.621 14.7361C37.3796 14.246 37.5251 13.9271 37.5515 13.8519C37.5287 13.7876 37.4333 13.5973 37.0635 13.2931C36.5266 12.8516 35.6288 12.3647 34.343 11.9175C31.79 11.0295 28.1333 10.4437 24 10.4437C19.8667 10.4437 16.2099 11.0295 13.657 11.9175C12.3712 12.3647 11.4734 12.8516 10.9365 13.2931C10.5667 13.5973 10.4713 13.7876 10.4485 13.8519ZM37.5563 18.7877C36.3176 19.3925 34.8502 19.8839 33.2571 20.2642C30.5836 20.9025 27.3973 21.2655 24 21.2655C20.6027 21.2655 17.4164 20.9025 14.7429 20.2642C13.1498 19.8839 11.6824 19.3925 10.4436 18.7877V34.1275C10.4515 34.1545 10.5427 34.4867 11.379 35.027C12.298 35.6207 13.7492 36.2054 15.6717 36.6644C18.0007 37.2205 20.8712 37.5564 24 37.5564C27.1288 37.5564 29.9993 37.2205 32.3283 36.6644C34.2508 36.2054 35.702 35.6207 36.621 35.027C37.4573 34.4867 37.5485 34.1546 37.5563 34.1275V18.7877ZM41.5563 13.8546V34.1455C41.5563 36.1078 40.158 37.5042 38.7915 38.3869C37.3498 39.3182 35.4192 40.0389 33.2571 40.5551C30.5836 41.1934 27.3973 41.5564 24 41.5564C20.6027 41.5564 17.4164 41.1934 14.7429 40.5551C12.5808 40.0389 10.6502 39.3182 9.20848 38.3869C7.84205 37.5042 6.44365 36.1078 6.44365 34.1455L6.44365 13.8546C6.44365 12.2684 7.37223 11.0454 8.39581 10.2036C9.43325 9.3505 10.8137 8.67141 12.343 8.13948C15.4203 7.06909 19.5418 6.44366 24 6.44366C28.4582 6.44366 32.5797 7.06909 35.657 8.13948C37.1863 8.67141 38.5667 9.3505 39.6042 10.2036C40.6278 11.0454 41.5563 12.2684 41.5563 13.8546Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Vibe</h1>
+</div>
+<!-- Links -->
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-text-muted hover:text-primary transition-colors font-medium text-sm" href="#">Explore</a>
+<a class="text-text-muted hover:text-primary transition-colors font-medium text-sm" href="#">Saved</a>
+<a class="text-primary font-bold text-sm bg-primary-light dark:bg-primary/20 px-4 py-2 rounded-full" href="#">Squads</a>
+<a class="text-text-muted hover:text-primary transition-colors font-medium text-sm" href="#">Profile</a>
+</nav>
+<!-- Search & User -->
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted material-symbols-outlined">search</span>
+<input class="bg-background-light dark:bg-surface-dark border-none rounded-full py-2.5 pl-10 pr-4 w-64 text-sm focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-text-muted/70" placeholder="Search farmhouses..." type="text"/>
+</div>
+<button class="size-10 rounded-full overflow-hidden border-2 border-white dark:border-surface-dark shadow-sm">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqNtLcjY2u1a73f3R9is9XS9PoiPepXjQ2GH0CQ81Y-ZXNrTJ_1b6bnYXlxEbZpiHB4whzGCE3xXgs3Bfw36weQcItsfB6aHC8KV1YkO7o9Em9SzN0qqKUVP7U1z10nGZ3BYbVMk6tFMJ1jjPodaS6d9iBUhPDFM7fnL46XVhAA2H2tax1aM0zO5826s0EsBUVHkri1j3pcmNBMisUKGeHZ17qhYBaKxVs56eGGNRurfIeWJ4_RviflvAQfER1wVrteqY9HDisyGU"/>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full p-6 pb-24">
+<!-- Squad Header -->
+<section class="mb-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Active Trip</span>
+<span class="text-text-muted text-sm font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_month</span>
+                            Oct 12 - Oct 14
+                        </span>
+</div>
+<h2 class="text-4xl md:text-5xl font-black tracking-tight text-text-main dark:text-white">The Weekend Crew</h2>
+<p class="text-text-muted dark:text-gray-400">Collaborative voting for the upcoming Napa Valley retreat.</p>
+</div>
+<div class="flex items-center gap-4">
+<!-- Avatars -->
+<div class="flex -space-x-3 items-center">
+<div class="relative group cursor-pointer hover:-translate-y-1 transition-transform">
+<img alt="Member 1" class="size-12 rounded-full border-2 border-white dark:border-background-dark object-cover" data-alt="Portrait of a smiling man with a beard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdFXMUvxe--h4MC3oW2OZ6CR3XBnjoqwInUFIyemhYhxLzv0M-dHzGs-wvkpMgCBbBatZpulW8GvTxVajHuHtVS-KkmNe51MLSCgDIvTtH9G7YSBZYvn21Nfc0aPprBFSoIuE-zUcutggRFXpZCvvlUcGM_dik6YjcCm9B337I7sLuYFQwMSZYdtWGx8S5Cmnp9lwZiasqlW05Wh9KF9kNHSkCR_3qkLUhC15gU2xp8tg3YFaOY1-asU02sIio5XaOcwMJ9peWelI"/>
+<span class="absolute bottom-0 right-0 size-3 bg-green-500 border-2 border-white dark:border-background-dark rounded-full"></span>
+</div>
+<div class="relative group cursor-pointer hover:-translate-y-1 transition-transform">
+<img alt="Member 2" class="size-12 rounded-full border-2 border-white dark:border-background-dark object-cover" data-alt="Portrait of a woman with curly hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKcQvsHn_tRK9FbE_4y-oHsorHzHJ9EwQVkV_aDWZ5YQfVZBtKUHNqNYlFlQE1_OArPpU75T98n9V2zUhc8UnMA-a8eZBwPM6cUGau56Wi98F6YY5cABMWj4yWsWsJy6HE0H4mwOxUocU_ZSx0zrMCzhF9cks5G-sme8Od6aSnR6lAkf-7KpDBkQa6nWOuu4tLE1Z6Z9efXebKMvAJoQAPEPFbw3rxavuzF4fz3d67H6o6iCSz4PLLdiqMIXKECmX35oVCa7AYBBQ"/>
+</div>
+<div class="relative group cursor-pointer hover:-translate-y-1 transition-transform">
+<img alt="Member 3" class="size-12 rounded-full border-2 border-white dark:border-background-dark object-cover" data-alt="Portrait of a man in a blue shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxttsa0emg8ujm287LFGIr6mVEAZHaoLELhja6JR4Hbd-7kxGIBkcRhYBWQ9MEGgXxazsb5slIrJLda-29zKgvCf80YFzd_95lUeVl0GPc7mT0G9n8E8aDts3SYrR9pMcbvuJ9iclVK5ANSd8FqtImyOzriRHEVpY-sOhVxg010sx6Lho7EXFuk76oCi0cAB-ayudvZdyILpjbMtvMgBQG8lRzo5MeeZO4cKrhyXxprzkTryywrGkfgiHz9y1BEUyDvY_Am20_A8E"/>
+<span class="absolute bottom-0 right-0 size-3 bg-green-500 border-2 border-white dark:border-background-dark rounded-full"></span>
+</div>
+<div class="relative group cursor-pointer hover:-translate-y-1 transition-transform">
+<img alt="Member 4" class="size-12 rounded-full border-2 border-white dark:border-background-dark object-cover" data-alt="Portrait of a smiling woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXK_4Jj4UoUaLJ4uP8BzrlOtd1mpgExjR7jNoN0pmDyUHXheD2E_v_rCM0-_ExHX2jkNCcDEtTjGgV9V0joYkSRduedzh1zvq9DAoZYWRuKV3PxwpT6BwqsNCvaqL7l_tQ3_qwBEnh3e57WVDXwwQ1YE7A6RdP3vfl32goa5TA8_wMvAR7bxw8wtLYN-tk5gFZHSQH8xEESVWX3rYXbOpKpdHnfDpEeAQZwr6qtJdJwotKa6hd4ydKLoQjGDZYrdKlpvJQVphotN0"/>
+</div>
+<button class="size-12 rounded-full border-2 border-dashed border-text-muted/30 bg-white dark:bg-surface-dark dark:border-gray-600 flex items-center justify-center text-text-muted hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="h-10 w-px bg-gray-200 dark:bg-gray-700 hidden md:block"></div>
+<button class="hidden md:flex items-center gap-2 bg-text-main dark:bg-white text-white dark:text-text-main px-5 py-3 rounded-full font-bold hover:shadow-lg hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span>Invite</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left: Filters & Sort -->
+<div class="hidden lg:block lg:col-span-3 space-y-6">
+<div class="bg-surface-light dark:bg-surface-dark p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 sticky top-24">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-lg">Filters</h3>
+<button class="text-xs font-semibold text-primary hover:text-primary/80">Reset</button>
+</div>
+<div class="space-y-6">
+<div>
+<label class="text-xs font-bold uppercase text-text-muted mb-3 block">Sort By</label>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="form-radio text-primary focus:ring-primary border-gray-300" name="sort" type="radio"/>
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Most Popular 🔥</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-radio text-primary focus:ring-primary border-gray-300" name="sort" type="radio"/>
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Price: Low to High</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-radio text-primary focus:ring-primary border-gray-300" name="sort" type="radio"/>
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Highest Rated</span>
+</label>
+</div>
+</div>
+<div class="h-px bg-gray-100 dark:bg-gray-800"></div>
+<div>
+<label class="text-xs font-bold uppercase text-text-muted mb-3 block">Price Range</label>
+<div class="flex items-center justify-between text-sm font-medium mb-2">
+<span>$100</span>
+<span>$800+</span>
+</div>
+<input class="w-full accent-primary h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer" type="range"/>
+</div>
+<div class="h-px bg-gray-100 dark:bg-gray-800"></div>
+<div>
+<label class="text-xs font-bold uppercase text-text-muted mb-3 block">Amenities</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1.5 text-xs font-semibold bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors">Pool</button>
+<button class="px-3 py-1.5 text-xs font-semibold bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors">Wifi</button>
+<button class="px-3 py-1.5 text-xs font-semibold bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors">Kitchen</button>
+<button class="px-3 py-1.5 text-xs font-semibold bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors">Pet Friendly</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Property Cards -->
+<div class="col-span-1 lg:col-span-9">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-xl flex items-center gap-2">
+                        Shortlisted Properties
+                        <span class="bg-gray-100 dark:bg-gray-800 text-text-main dark:text-gray-300 text-xs px-2 py-0.5 rounded-full">3</span>
+</h3>
+<div class="lg:hidden">
+<button class="flex items-center gap-2 text-sm font-semibold bg-white dark:bg-surface-dark px-4 py-2 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filters
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Card 1: Top Rated -->
+<div class="group bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-xl hover:border-primary/20 transition-all duration-300 flex flex-col relative">
+<!-- Rank Badge -->
+<div class="absolute top-4 left-4 z-10 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] fill-current">emoji_events</span> #1 Choice
+                        </div>
+<div class="absolute top-4 right-4 z-10">
+<button class="bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-red-500 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<!-- Image -->
+<div class="relative aspect-[4/3] overflow-hidden">
+<img alt="Luxury modern villa with pool" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern white villa with a blue swimming pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYGE9c1Hxy8CeXldeagypAxp3RytotckWEoQh3Q7J0IXfBLlSzExK-oyZXLfSrWY1AMNj3mzSn3t6U7Zhh_OjTTzEPkl86t01rTczuoPpVkjMgUMTTtbIhDn5IBDpYYThdLUDshcGHdnpCRjlv0FvHJHhPmXn9imDHPGgVPAtIB6QPItlpLjxsn6XIN2_JyRydW6zjK83nvtIQykQirwe88mlhFauBPDXMR7HzJo8EK2Lj8VtFjqHyiYXWcToksCBBUyuvd-mV4YQ"/>
+<div class="absolute bottom-3 left-3 flex gap-1">
+<span class="bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-md">4.9 ★</span>
+</div>
+</div>
+<!-- Content -->
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h4 class="font-bold text-lg leading-tight group-hover:text-primary transition-colors">The Rustic Orchard</h4>
+<p class="text-sm text-text-muted mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Napa Valley, CA
+                                    </p>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-text-muted px-2 py-1 rounded-md">Entire Home</span>
+<span class="text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-text-muted px-2 py-1 rounded-md">4 Beds</span>
+</div>
+<div class="flex items-end justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
+<div>
+<p class="text-xs text-text-muted">Total for 2 nights</p>
+<p class="text-lg font-black text-text-main dark:text-white">$1,250</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-text-muted mb-1">Per person</p>
+<p class="text-sm font-bold text-primary">$250</p>
+</div>
+</div>
+<!-- Voting Action -->
+<div class="mt-5 bg-background-light dark:bg-background-dark rounded-xl p-2 flex items-center justify-between gap-2">
+<button class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-surface-dark hover:bg-green-50 dark:hover:bg-green-900/20 text-text-main dark:text-white py-2 rounded-lg transition-colors border border-transparent hover:border-green-200 group/vote">
+<span class="text-xl group-hover/vote:scale-125 transition-transform">🔥</span>
+<span class="font-bold">4</span>
+</button>
+<div class="w-px h-8 bg-gray-200 dark:bg-gray-700"></div>
+<button class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-surface-dark hover:bg-blue-50 dark:hover:bg-blue-900/20 text-text-main dark:text-white py-2 rounded-lg transition-colors border border-transparent hover:border-blue-200 group/vote">
+<span class="text-xl group-hover/vote:scale-125 transition-transform">🧊</span>
+<span class="font-bold">0</span>
+</button>
+</div>
+<!-- Voters Avatars Mini -->
+<div class="mt-3 flex items-center gap-2 justify-center">
+<div class="flex -space-x-2">
+<img alt="voter" class="size-6 rounded-full border-2 border-white dark:border-surface-dark" data-alt="Portrait of a smiling man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyHIpTiwc1WsAWKxj6E2qUcs8G0bZyQaCcmcF3Hu9tQ8q03hfp2WAyFr5Lq6fvF6vpN3HIBomregm7farIiXjwJ3M9zsL3sw6_YB9Y7joruRUwSJGstTX0x47OWpyAZPlfakhbSgbo9Z0KpZBVmE95uba4S8i5Kcn83l9yWnG_4jCW3jBLkET4pK2JU-fbmpCtpzDNCwIO63ZEZZLqKxA5Wv2FYJ8TgMa0-XGoNZBnx0l_4aapJ3oVh-KwWX_Z0IeIgWWoQ01D0jk"/>
+<img alt="voter" class="size-6 rounded-full border-2 border-white dark:border-surface-dark" data-alt="Portrait of a woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUhaDTrj2Mkg9R7QDpUrdQpfBirQnmkMTsVYcoqpdb4HeICupv6sJ9elm-umdEipuz7rPtl9AUi-QXNy9DevhnHOjNBfceIeLBg0XdREYUxNjdaujNoR4dBjLm83m-c1YomvfpOkw6G_LiXrJ-0CIWJCJgx4xYhtFHuD5Smlw8wIhZK-4Ll5omzkW7JUtmTgNZQ2z4Jl0M47YxzvGdlHaLtNTPeHpzeJDf1sTaQ6aAASiX2dux9jqXes-dpxYKVcuq6ap8N7e79RA"/>
+</div>
+<span class="text-[10px] text-text-muted font-medium">voted hot</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-xl hover:border-primary/20 transition-all duration-300 flex flex-col">
+<div class="relative aspect-[4/3] overflow-hidden">
+<div class="absolute top-4 right-4 z-10">
+<button class="bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-red-500 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<img alt="Wooden cabin in the woods" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Cozy wooden cabin surrounded by forest trees" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHYa8xOTMwd_XtllJdWHwmTTNabEv_H1rTdw2zpIQRfL3vopi05RtcfftVc3z5642iuHcLR15MkOjdb2wt8ZltqKavzFrgJDd5SAHSunMc2ZWyV7dPrfT3NUBzdMvCZVGzwEkPW34JadQ8sHE7XBJlG1Cl1yFxeJncFU6X9oSz2jeG7XoA_Ld2zwLIWiP0RggJFsHHzGZBRxTAd0_Np-PcWhifXjSAi6PAgbVemQdk7nNMoH0i2zTaT6VyY5nRAODgknxGFJ3OSHE"/>
+<div class="absolute bottom-3 left-3 flex gap-1">
+<span class="bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-md">4.7 ★</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h4 class="font-bold text-lg leading-tight group-hover:text-primary transition-colors">Pine Creek Cabin</h4>
+<p class="text-sm text-text-muted mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Sonoma, CA
+                                    </p>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-text-muted px-2 py-1 rounded-md">Cabin</span>
+<span class="text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-text-muted px-2 py-1 rounded-md">Hot Tub</span>
+</div>
+<div class="flex items-end justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
+<div>
+<p class="text-xs text-text-muted">Total for 2 nights</p>
+<p class="text-lg font-black text-text-main dark:text-white">$980</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-text-muted mb-1">Per person</p>
+<p class="text-sm font-bold text-primary">$196</p>
+</div>
+</div>
+<div class="mt-5 bg-background-light dark:bg-background-dark rounded-xl p-2 flex items-center justify-between gap-2">
+<button class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-surface-dark hover:bg-green-50 dark:hover:bg-green-900/20 text-text-main dark:text-white py-2 rounded-lg transition-colors border border-transparent hover:border-green-200 group/vote">
+<span class="text-xl group-hover/vote:scale-125 transition-transform">🔥</span>
+<span class="font-bold">2</span>
+</button>
+<div class="w-px h-8 bg-gray-200 dark:bg-gray-700"></div>
+<button class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-surface-dark hover:bg-blue-50 dark:hover:bg-blue-900/20 text-text-main dark:text-white py-2 rounded-lg transition-colors border border-transparent hover:border-blue-200 group/vote">
+<span class="text-xl group-hover/vote:scale-125 transition-transform">🧊</span>
+<span class="font-bold">1</span>
+</button>
+</div>
+<div class="mt-3 flex items-center gap-2 justify-center">
+<div class="flex -space-x-2">
+<img alt="voter" class="size-6 rounded-full border-2 border-white dark:border-surface-dark" data-alt="Portrait of a man in blue shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIVf2Oy6ckoBw3M23Sklq43mKQaCCB_nhzabITM8F_r2AJ19OYEecadkBFKuLOFrAoA1TYtWI8ZJ9c2FSb4fha6YhKfsP-49RrE8g1D5l8ePi5SKYLEGzrlpkYK0cSR4-rAbGgTf0fy3pYA-FjmEbikRMR_UTsxmcj8OwMYjQRMWw7suTEgc_PoR6_GbFZbtl_-xvjH6l92lsmny5tunWt_tNLTZWi0jgyuDmdZbFSQdrWiZwcIt-FR0HbODZDd9x0KTCv7i1gAEA"/>
+</div>
+<span class="text-[10px] text-text-muted font-medium">voted hot</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-xl hover:border-primary/20 transition-all duration-300 flex flex-col">
+<div class="relative aspect-[4/3] overflow-hidden">
+<div class="absolute top-4 right-4 z-10">
+<button class="bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-red-500 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<img alt="Modern house with large windows" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Exterior of a modern house with large windows and a garden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0drjj8WSzQn3JQQbBv_lHRjtSTBg5PYM9m0yER1xmqoVvYiHO_2AsxjG8JFU25I5UkRz7KpkPqeD-vzmRsFHWA4VocR7MGM3D93aw3hlcRqRrDGa69cBCM0aJE5zQwfrBSIYwLA9EH0emBqQu-68jrENrZIWMdpjk3DHdhYJDzRI4XGrxabQrQwLvKAQ35-3mOCgfV5d_3X4G2p2qta7BqH1BeiU7DhsEI_X1Tmym0E2IZedcXsr5ucLGH5ZXoAnp9kEu45CghWQ"/>
+<div class="absolute bottom-3 left-3 flex gap-1">
+<span class="bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-md">4.5 ★</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h4 class="font-bold text-lg leading-tight group-hover:text-primary transition-colors">Sunset Villa</h4>
+<p class="text-sm text-text-muted mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Calistoga, CA
+                                    </p>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-text-muted px-2 py-1 rounded-md">Villa</span>
+<span class="text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-text-muted px-2 py-1 rounded-md">Vineyard View</span>
+</div>
+<div class="flex items-end justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
+<div>
+<p class="text-xs text-text-muted">Total for 2 nights</p>
+<p class="text-lg font-black text-text-main dark:text-white">$1,500</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-text-muted mb-1">Per person</p>
+<p class="text-sm font-bold text-primary">$300</p>
+</div>
+</div>
+<div class="mt-5 bg-background-light dark:bg-background-dark rounded-xl p-2 flex items-center justify-between gap-2">
+<button class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-surface-dark hover:bg-green-50 dark:hover:bg-green-900/20 text-text-main dark:text-white py-2 rounded-lg transition-colors border border-transparent hover:border-green-200 group/vote">
+<span class="text-xl group-hover/vote:scale-125 transition-transform">🔥</span>
+<span class="font-bold">1</span>
+</button>
+<div class="w-px h-8 bg-gray-200 dark:bg-gray-700"></div>
+<button class="flex-1 flex items-center justify-center gap-2 bg-primary/10 text-primary py-2 rounded-lg transition-colors border border-primary/20 group/vote">
+<span class="text-xl group-hover/vote:scale-125 transition-transform">🧊</span>
+<span class="font-bold">3</span>
+</button>
+</div>
+<div class="mt-3 flex items-center gap-2 justify-center">
+<div class="flex -space-x-2">
+<img alt="voter" class="size-6 rounded-full border-2 border-white dark:border-surface-dark grayscale opacity-50" data-alt="Portrait of a smiling woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT7O7Wo3hDFGeHywYDwdhi-0Z3VE-XHIQg9Mg-fiiPwg2_zv1vC6GsRnaWaTSCTXcAwIHuwLdwBM2RG5FX09J8ElJbnx3w1tZR_fPFhNS99SGvIUcyOrT3xNKUTZMXcgV_zuOo0NO8cpcKpH-5HgFnwfQSdX_v0wHHujkV_-R9tP12uqcu-E0Pi49i7KjmAVpnvOb8DTwtb1dIoVmUMJT0RwxbmvMB6j3fTJVL_duEAYAtxdPrn2YA34KJGODMoNrSDXQ2Q8YvIv4"/>
+<img alt="voter" class="size-6 rounded-full border-2 border-white dark:border-surface-dark grayscale opacity-50" data-alt="Portrait of a smiling man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz8BOlGcPw5Y10qcifTsqXi4kwKFzG9meq1ORyZdf9Wl7JA2ykYhSlgf6yZpmr6mSfxXYT8R76HlsZDd1v3c3W-4RkKqlb00OJMkwpD0DLzWrURRK8sVjZnZgvGrMvdY5r9Y5rQ0Qdvm37N8_SgRTHYqDupOwVhgp28j4PdHhUFmB85yKrQWmSZxgaJMKmKse90zPQOPInOq4lZD-9FvoIKHlzHE-7wubdvRtmoOtGIsycSxctoszeWWz6YEVWOC_JB6UNPCxDuI8"/>
+</div>
+<span class="text-[10px] text-text-muted font-medium">voted cold</span>
+</div>
+</div>
+</div>
+<!-- Add New Card Slot -->
+<div class="group border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 text-text-muted hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all cursor-pointer min-h-[400px]">
+<div class="size-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[32px]">add_home</span>
+</div>
+<div class="text-center">
+<h4 class="font-bold text-lg">Add Property</h4>
+<p class="text-sm opacity-70">Browse or paste a link</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Floating Action Button (Split Bill) -->
+<div class="fixed bottom-24 right-8 z-40 animate-bounce hover:animate-none">
+<button class="flex items-center gap-3 bg-text-main dark:bg-white text-white dark:text-text-main px-6 py-4 rounded-full shadow-2xl hover:scale-105 hover:shadow-primary/30 transition-all font-bold group">
+<span class="bg-primary text-white rounded-full p-1">
+<span class="material-symbols-outlined text-[20px]">calculate</span>
+</span>
+<span class="group-hover:pr-2 transition-all">Split Bill</span>
+<span class="bg-gray-700 dark:bg-gray-200 text-xs px-2 py-0.5 rounded-full">$1,250 est.</span>
+</button>
+</div>
+</main>
+<!-- Persistent Bottom Nav (Mobile/Desktop consistent as requested) -->
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-white/90 dark:bg-surface-dark/90 backdrop-blur-xl border border-gray-200 dark:border-gray-700 shadow-2xl rounded-full px-6 py-3 flex items-center gap-8 lg:hidden">
+<a class="flex flex-col items-center gap-1 text-text-muted hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:-translate-y-1 transition-transform">explore</span>
+<span class="text-[10px] font-bold">Explore</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-text-muted hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:-translate-y-1 transition-transform">favorite</span>
+<span class="text-[10px] font-bold">Saved</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary transition-colors group relative" href="#">
+<div class="absolute -top-1 -right-1 size-2 bg-primary rounded-full animate-ping"></div>
+<div class="absolute -top-1 -right-1 size-2 bg-primary rounded-full"></div>
+<span class="material-symbols-outlined fill-current group-hover:-translate-y-1 transition-transform">groups</span>
+<span class="text-[10px] font-bold">Squads</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-text-muted hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:-translate-y-1 transition-transform">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</a>
+</nav>
+<!-- Additional Decorative Elements -->
+<div class="fixed top-20 left-0 w-full h-96 bg-primary/5 -z-10 blur-3xl pointer-events-none rounded-full translate-y-[-50%]"></div>
+<div class="fixed bottom-0 right-0 w-96 h-96 bg-blue-500/5 -z-10 blur-3xl pointer-events-none rounded-full translate-y-[20%]"></div>
+</body></html>

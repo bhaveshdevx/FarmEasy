@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vibe - Interactive Discovery Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec4913",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221510",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom map styling simulation */
+        .map-bg {
+            background-color: #1a1a1a;
+            background-image: 
+                radial-gradient(circle at 100% 50%, transparent 20%, rgba(255,255,255,0.03) 21%, rgba(255,255,255,0.03) 34%, transparent 35%, transparent),
+                radial-gradient(circle at 0% 50%, transparent 20%, rgba(255,255,255,0.03) 21%, rgba(255,255,255,0.03) 34%, transparent 35%, transparent) center center;
+            background-size: 100px 100px;
+        }
+
+        /* Road lines simulation */
+        .map-road {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 999px;
+        }
+
+        /* Glowing effect for markers */
+        .marker-glow {
+            box-shadow: 0 0 20px 5px rgba(236, 73, 19, 0.3);
+            animation: pulse-glow 2s infinite;
+        }
+        
+        .marker-glow-blue {
+            box-shadow: 0 0 20px 5px rgba(59, 130, 246, 0.3);
+            animation: pulse-glow 2.5s infinite;
+        }
+
+        .marker-glow-green {
+            box-shadow: 0 0 20px 5px rgba(34, 197, 94, 0.3);
+            animation: pulse-glow 3s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); box-shadow: 0 0 15px 2px rgba(255,255,255, 0.1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 25px 8px rgba(255,255,255, 0.2); }
+            100% { transform: scale(1); box-shadow: 0 0 15px 2px rgba(255,255,255, 0.1); }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display h-screen w-screen overflow-hidden flex flex-col relative text-slate-900 dark:text-slate-100">
+<!-- Map Background Simulation -->
+<div class="absolute inset-0 z-0 bg-[#141414] overflow-hidden">
+<!-- Abstract Dark Map Texture -->
+<div class="absolute inset-0 opacity-20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA6Tz7vCAMjwetd7QD2fl8JDWGNJ7x0P5NwwKqUTYQQvJom8gmF7Cmo9W-F6MFxV0TJSisA5RKYyZWEXnKJ6dRuMo6843F_Fpww4g4ujErjyP8B4f_Vfup8Jcb43GRn0UHZhJ2zH6KXgqTOuysyHw_Td099GJUM1NIo5G-hVFyPwKACHOLWNCIWtp3GXP28lOxxsaAcbi8BCZgKb9J-VTMyMaCYZ6yAZctgmLY_r0Yy7i5MHmdr8AsoTbuVQhdSipqtcWXEa7snhII'); background-size: cover; filter: grayscale(100%) invert(1);"></div>
+<!-- Simulated Map Elements (Roads/Rivers) -->
+<div class="map-road w-[120%] h-8 top-1/3 -left-10 rotate-12"></div>
+<div class="map-road w-[120%] h-6 top-2/3 -left-10 -rotate-6"></div>
+<div class="map-road w-4 h-[120%] left-1/4 -top-10 rotate-3"></div>
+<div class="map-road w-6 h-[120%] right-1/3 -top-10 -rotate-12"></div>
+</div>
+<!-- Top Controls: Search & Filters -->
+<div class="absolute top-0 left-0 right-0 z-20 p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pointer-events-none">
+<!-- Search Bar -->
+<div class="pointer-events-auto bg-[#181311]/80 backdrop-blur-md border border-white/10 rounded-full flex items-center p-1.5 pr-6 shadow-2xl w-full max-w-md">
+<div class="bg-[#2a221f] text-white rounded-full p-2.5 mr-3">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="bg-transparent border-none text-white placeholder-white/40 focus:ring-0 w-full text-sm font-medium" placeholder="Search for vibes, pools, firepits..." type="text"/>
+</div>
+<!-- Filter Pills -->
+<div class="pointer-events-auto flex gap-3 overflow-x-auto pb-2 md:pb-0 max-w-full no-scrollbar">
+<button class="bg-primary text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg hover:scale-105 transition-transform flex items-center gap-2 whitespace-nowrap">
+<span>🔥</span> Trending
+            </button>
+<button class="bg-[#181311]/80 backdrop-blur-md border border-white/10 text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-lg hover:bg-white/10 transition-colors flex items-center gap-2 whitespace-nowrap">
+<span>🏊</span> Pools
+            </button>
+<button class="bg-[#181311]/80 backdrop-blur-md border border-white/10 text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-lg hover:bg-white/10 transition-colors flex items-center gap-2 whitespace-nowrap">
+<span>🌳</span> Nature
+            </button>
+<button class="bg-[#181311]/80 backdrop-blur-md border border-white/10 text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-lg hover:bg-white/10 transition-colors flex items-center gap-2 whitespace-nowrap">
+<span>💰</span> Under $200
+            </button>
+</div>
+</div>
+<!-- Map Markers -->
+<div class="absolute inset-0 z-10 pointer-events-none">
+<!-- Marker 1: Trending (Active/Hovered) -->
+<button class="pointer-events-auto absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 group">
+<div class="relative flex items-center justify-center">
+<div class="absolute inset-0 bg-primary/40 rounded-full blur-xl w-16 h-16 animate-pulse"></div>
+<div class="bg-primary border-4 border-[#221510] w-14 h-14 rounded-full flex items-center justify-center shadow-2xl z-10 transform transition-transform group-hover:scale-110">
+<span class="text-2xl">🔥</span>
+</div>
+<!-- Tooltip Label -->
+<div class="absolute -bottom-10 bg-[#181311]/90 backdrop-blur-sm px-3 py-1 rounded-lg border border-white/10 text-xs font-bold text-white whitespace-nowrap opacity-100 transition-opacity">
+                    The Rustic Orchard
+                </div>
+</div>
+</button>
+<!-- Marker 2: Pool -->
+<button class="pointer-events-auto absolute top-[60%] left-[20%] group">
+<div class="relative flex items-center justify-center">
+<div class="absolute inset-0 bg-blue-500/20 rounded-full blur-lg w-12 h-12 marker-glow-blue"></div>
+<div class="bg-[#2a221f] border-2 border-white/10 w-12 h-12 rounded-full flex items-center justify-center shadow-2xl z-10 transform transition-transform group-hover:scale-110 hover:bg-blue-600 hover:border-blue-400">
+<span class="text-xl">🏊</span>
+</div>
+</div>
+</button>
+<!-- Marker 3: Nature -->
+<button class="pointer-events-auto absolute top-[25%] right-[20%] group">
+<div class="relative flex items-center justify-center">
+<div class="absolute inset-0 bg-green-500/20 rounded-full blur-lg w-12 h-12 marker-glow-green"></div>
+<div class="bg-[#2a221f] border-2 border-white/10 w-12 h-12 rounded-full flex items-center justify-center shadow-2xl z-10 transform transition-transform group-hover:scale-110 hover:bg-green-600 hover:border-green-400">
+<span class="text-xl">🌳</span>
+</div>
+</div>
+</button>
+<!-- Marker 4: Trending -->
+<button class="pointer-events-auto absolute bottom-[30%] right-[35%] group">
+<div class="relative flex items-center justify-center">
+<div class="absolute inset-0 bg-primary/20 rounded-full blur-lg w-12 h-12 marker-glow"></div>
+<div class="bg-[#2a221f] border-2 border-white/10 w-12 h-12 rounded-full flex items-center justify-center shadow-2xl z-10 transform transition-transform group-hover:scale-110 hover:bg-primary hover:border-orange-400">
+<span class="text-xl">🔥</span>
+</div>
+</div>
+</button>
+</div>
+<!-- Bottom Interface Layer -->
+<div class="absolute bottom-0 left-0 right-0 z-30 p-6 flex flex-col items-center gap-6 pointer-events-none">
+<!-- Floating Preview Card (The "Bottom Sheet") -->
+<div class="pointer-events-auto w-full max-w-lg bg-[#181311]/90 backdrop-blur-xl border border-white/10 rounded-[2rem] p-4 shadow-2xl transform transition-all hover:scale-[1.02] cursor-pointer flex gap-4 items-center">
+<!-- Video Preview Thumbnail -->
+<div class="relative w-24 h-24 md:w-32 md:h-24 shrink-0 rounded-xl overflow-hidden bg-gray-800">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Cozy camping vibe with a bonfire in a forest setting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBxP1dsdqs9v1PgVw0fU_ImXf2fL7TiNDWJ3J4HfyjtA2TsOHzMiZKkDC24uHHbitEIqyZvtqw3CGUieIgVOsVyd1BgALCuSjqHu7bVxB0CqUfNockledkzCtdanarnHnR-Vj0s5GxELnNVY5ISwRHkuzFW3LJDgynEGoNGTADOf4cNhQBtes4ICI_27HTWnUw_mrW1s-ZQDxapfEv7m0Y0v1fIrVoAeQ79NJbOHZmWjGjy9YKgHx11yP4nkueYbhj2LsoDWiwA8PE');"></div>
+<!-- Play Icon Overlay -->
+<div class="absolute inset-0 flex items-center justify-center bg-black/20">
+<span class="material-symbols-outlined text-white/80 text-3xl">play_circle</span>
+</div>
+<div class="absolute bottom-1 right-1 bg-black/60 px-1.5 py-0.5 rounded text-[10px] text-white font-medium">0:03</div>
+</div>
+<!-- Content -->
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-white font-bold text-lg truncate">The Rustic Orchard</h3>
+<div class="flex items-center gap-1 text-yellow-400 text-xs font-bold bg-yellow-400/10 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px] font-bold">star</span>
+                        4.9
+                    </div>
+</div>
+<p class="text-slate-400 text-sm truncate">Hosted by Alex • 2 miles away</p>
+<div class="flex items-center justify-between mt-2">
+<div class="text-white font-medium">
+                        $150 <span class="text-slate-500 text-xs font-normal">/ night</span>
+</div>
+<button class="bg-primary hover:bg-orange-600 text-white text-xs font-bold py-2 px-4 rounded-full transition-colors flex items-center gap-1">
+                        View
+                        <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Persistent Navigation Dock -->
+<div class="pointer-events-auto bg-[#221510] border border-white/5 rounded-full px-6 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center gap-8 md:gap-12">
+<button class="flex flex-col items-center gap-1 group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white transition-colors text-[28px]">search</span>
+<span class="text-[10px] font-medium text-slate-400 group-hover:text-white transition-colors">Explore</span>
+</button>
+<button class="flex flex-col items-center gap-1 group relative">
+<div class="absolute -top-1 right-0 w-2 h-2 bg-primary rounded-full"></div>
+<span class="material-symbols-outlined text-primary text-[28px] fill-current" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="text-[10px] font-bold text-white">Map</span>
+</button>
+<div class="w-px h-8 bg-white/10"></div>
+<button class="flex flex-col items-center gap-1 group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white transition-colors text-[28px]">favorite</span>
+<span class="text-[10px] font-medium text-slate-400 group-hover:text-white transition-colors">Saved</span>
+</button>
+<button class="flex flex-col items-center gap-1 group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white transition-colors text-[28px]">person</span>
+<span class="text-[10px] font-medium text-slate-400 group-hover:text-white transition-colors">Profile</span>
+</button>
+</div>
+</div>
+<!-- Floating Action Button (Optional Context) -->
+<div class="absolute right-6 bottom-32 z-20 flex flex-col gap-3 pointer-events-auto">
+<button class="w-12 h-12 bg-[#2a221f] rounded-full flex items-center justify-center text-white shadow-lg border border-white/10 hover:bg-white/10 transition-colors" title="My Location">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<button class="w-12 h-12 bg-[#2a221f] rounded-full flex items-center justify-center text-white shadow-lg border border-white/10 hover:bg-white/10 transition-colors" title="Layers">
+<span class="material-symbols-outlined">layers</span>
+</button>
+</div>
+</body></html>
